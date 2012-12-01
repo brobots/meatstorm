@@ -38,6 +38,40 @@ void pre_auton()
 	// Example: clearing encoders, setting servo positions, ...
 }
 
+/* Low-level movement methods for autonomous */
+
+// Set these using a bumper switch
+float currentX = 0;
+float currentY = 0;
+
+void moveDistance(float dist)
+{
+	int rotations = 0; // convert dist to number of rotations (use wheel diameter)
+	// reset SensorValue for your optical shaft controller
+	while(5 <= rotations) // update this condition to match your optical shaft sensor value instead of 5
+	{
+		// activate motors
+	}
+	return; // once done rotating
+}
+
+void turn(float degrees)
+{
+	int rotations = 0; // convert degrees to number of rotations (use wheel diameter)
+	// reset SensorValue for your optical shaft controller
+	while(5 <= rotations) // update this condition to match your optical shaft sensor value instead of 5
+	{
+		// activate motors
+	}
+	return; // once done rotating
+}
+
+void goTo(float x, float y)
+{
+	// compare x, y to currentX, currentY
+	// unless you want to do complex path-finding to avoid obstacles like goals: find angle between you and destination, turn that angle, then move necessary distance.
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 //                                 Autonomous Task
@@ -68,12 +102,11 @@ task autonomous()
 task usercontrol()
 {
 	// User control code here, inside the loop
-	double threshold = 12.7;
-	if (vexRT[Btn7U] == 1)
-	{
+	float threshold = 12.7;
 
 	while (true)
 	{
+
 	  if (abs(vexRT[Ch3]) > threshold)
 	  {
 	  	motor[leftWheel] = vexRT[Ch3];
@@ -87,10 +120,11 @@ task usercontrol()
 			motor[rightWheel] = vexRT[Ch2];
 		}
 		else
-			{
-				motor[leftWheel] = 0;
-				motor[rightWheel] = 0;
-			}
+		{
+			motor[leftWheel] = 0;
+			motor[rightWheel] = 0;
+		}
+
 		if (vexRT[Btn6U] == 1)
 		{
 			motor[rightTower] = 90;
@@ -106,17 +140,6 @@ task usercontrol()
 			motor[rightTower] = 0;
 			motor[leftTower] = 0;
 		}
+	} // end while loop
 
-
-		// This is the main execution loop for the user control program. Each time through the loop
-	  // your program should update motor + servo values based on feedback from the joysticks.
-
-	  // .....................................................................................
-	  // Insert user code here. This is where you use the joystick values to update your motors, etc.
-	  // .....................................................................................
-
-	  UserControlCodePlaceholderForTesting(); // Remove this function call once you have "real" code.
-	}
-	}
-}
-}
+} // end usercontrol task
