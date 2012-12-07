@@ -32,3 +32,6 @@
 #pragma config(Motor,  port9,           rightWheel,    tmotorNormal, openLoop)
 ```
 
+**Controller layout:**
+
+![Joystick drawing](http://i.imgur.com/i3MZM.jpg?1)
