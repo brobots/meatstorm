@@ -74,7 +74,7 @@ task usercontrol()
 
 	while (true)
 	{
-		// base wheels
+		// base wheels: joystick movement
 	  if (abs(vexRT[Ch3]) > threshold)
 	  {
 	  	motor[leftWheel] = vexRT[Ch3];
@@ -92,7 +92,7 @@ task usercontrol()
 			motor[rightWheel] = 0;
 		}
 
-		// tower motors
+		// tower motors: press and hold to activate
 		if (vexRT[Btn6U] == 1)
 		{
 			motor[rightTower] = 90;
@@ -109,18 +109,59 @@ task usercontrol()
 			motor[leftTower] = 0;
 		}
 
-		// intake motors: TOGGLE controls, not press-and-hold
-		if (vexRT[Btn5U] == 1)
+		/*
+		* Note for implementing toggle controls:
+		*
+		* The robot runs through the entire while loop faster than you can press and release the button.
+		* That means that a condition like if (vexRT[Btn5U] == 1) will be true multiple times.
+		* Thus, you cannot just look for when that button is pressed and then toggle whether the motors are enabled.
+		*
+		* You have to make sure there is a time in between button presses where the button is not pressed,
+		* meaning the button-is-pressed situations are not from a single press.
+		*
+		* See below for a good way to implement toggling buttons.
+		*/
+
+		// intake motors: toggle controls. 5U toggles on+in vs. off; 5D toggles on+out vs. off; either button can turn off any motor activity.
+		bool isIntakeOn = false;
+		bool wasChangingIntake = false;
+		if (vexRT[Btn5U] == 1) // up button pressed, toggle on+in vs off.
 		{
-			motor[intake] = 90;
+			if(!wasChangingIntake) // only respond if it's a new signal; we turn off wasChangingIntake as soon as we get a time where neither button is pressed
+			{
+				if(!isIntakeOn) // intake is currently off, so let's turn it on
+				{
+						motor[intake] = 90;
+				}
+				else
+				{
+						motor[intake] = 0;
+				}
+				wasChangingIntake = true; // ensure that we do not respond again to this button press; the next repsonse to this button will only happen after we set wasChangingIntake to false when neither button is pressed
+			}
 		}
-		else if (vexRT[Btn5D] == 1)
+		else if (vexRT[Btn5D] == 1) // down button pressed, toggle on+out vs off.
 		{
-			motor[intake] = -90;
+			if(!wasChangingIntake) // only respond if it's a new signal; we turn off wasChangingIntake as soon as we get a time where neither button is pressed
+			{
+				if(!isIntakeOn) // intake is currently off, so let's turn it on
+				{
+						motor[intake] = -90;
+				}
+				else
+				{
+						motor[intake] = 0;
+				}
+				wasChangingIntake = true; // ensure that we do not respond again to this button press; the next repsonse to this button will only happen after we set wasChangingIntake to false when neither button is pressed
+			}
 		}
-		else
+		else // neither button is pressed, so we might be anticipating a toggle button press to turn the motors off.
 		{
-			motor[intake] = 0;
+				if(wasChangingIntake) // if we had just been changing the intake motor and then let go
+				{
+						isIntakeOn = !isIntakeOn; // toggle isIntakeOn to update to new state
+						wasChangingIntake = false; // reset so that we can respond to the next button press
+				}
 		}
 
 	} // end while loop
