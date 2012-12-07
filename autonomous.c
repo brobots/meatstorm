@@ -74,10 +74,10 @@ void leftTurn(float degrees)
 	}
 	return; // once done rotating
 }
-void goTo(float x, float y)
-{
+//void goTo(float x, float y)
+//{
 	// compare x, y to currentX, currentY
 	// unless you want to do complex path-finding to avoid obstacles like goals: find angle between you and destination, turn that angle, then move necessary distance.
-	float distance = 0
-	distance = sqrt(())
-}
+	//float distance = 0
+	//distance = sqrt(())
+//}

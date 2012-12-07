@@ -5,7 +5,7 @@
 #pragma config(Sensor, dgtl6,  Button2,        sensorTouch)
 #pragma config(Sensor, dgtl7,  Button3,        sensorTouch)
 #pragma config(Sensor, dgtl8,  Button4,        sensorTouch)
-#pragma config(Motor,  port2,           rightTower,    tmotorVex393, openLoop)
+#pragma config(Motor,  port2,           rightTower,    tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port3,           leftTower,     tmotorVex393, openLoop)
 #pragma config(Motor,  port6,           intake,        tmotorNormal, openLoop)
 #pragma config(Motor,  port8,           leftWheel,     tmotorNormal, openLoop)
