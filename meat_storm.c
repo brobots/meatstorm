@@ -71,6 +71,8 @@ task usercontrol()
 {
 	// User control code here, inside the loop
 	float threshold = 12.7;
+	bool isIntakeOn = false;
+	bool wasChangingIntake = false;
 
 	while (true)
 	{
@@ -123,8 +125,6 @@ task usercontrol()
 		*/
 
 		// intake motors: toggle controls. 5U toggles on+in vs. off; 5D toggles on+out vs. off; either button can turn off any motor activity.
-		bool isIntakeOn = false;
-		bool wasChangingIntake = false;
 		if (vexRT[Btn5U] == 1) // up button pressed, toggle on+in vs off.
 		{
 			if(!wasChangingIntake) // only respond if it's a new signal; we turn off wasChangingIntake as soon as we get a time where neither button is pressed
