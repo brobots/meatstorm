@@ -4,6 +4,7 @@
 
 * 1, 2: quadrature encoder on right side for tower
 * 3: single-wire encoder on right base wheel
+* 4: single-wire encoder on left base wheel
 * 5: touch
 * 6: touch
 * 7: touch

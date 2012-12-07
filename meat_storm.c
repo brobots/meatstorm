@@ -1,4 +1,6 @@
 #pragma config(Sensor, dgtl1,  rightTowerEncoder, sensorQuadEncoder)
+#pragma config(Sensor, dgtl3,  rwheelEncoder,  sensorRotation)
+#pragma config(Sensor, dgtl4,  lwheelEncoder,  sensorRotation)
 #pragma config(Sensor, dgtl5,  Button1,        sensorTouch)
 #pragma config(Sensor, dgtl6,  Button2,        sensorTouch)
 #pragma config(Sensor, dgtl7,  Button3,        sensorTouch)

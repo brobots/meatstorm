@@ -7,8 +7,8 @@ float currentY = 0;
 
 void moveDistance(float dist)
 {
-	int rotations = 0; // convert dist to number of rotations (use wheel diameter)
-	rotations = floor(dist / (4.0 * PI));
+	int rotations = floor(dist / (4.0 * PI)); // convert dist to number of rotations (use wheel diameter)
+
 	// reset SensorValue for your optical shaft controller
 	// we need to add the wheel encoder(s) to the motor and sensors setup window!
 	SensorValue[rwheelEncoder] = 0;
@@ -34,7 +34,7 @@ void moveDistance(float dist)
 			motor[rightWheel] = 120;
 			motor[leftWheel] = 120;
 		}
-		
+
 	}
 	return; // once done rotating
 }
@@ -44,8 +44,8 @@ void rightTurn(float degrees)
 	int rotations = 0; // convert degrees to number of rotations (use wheel diameter)
 	// reset SensorValue for your optical shaft controller
 	SensorValue[lwheelEncoder] = 0;
-	/* I'm not 100% sure this part is right, but I treated the rotation as a circle with the angle being a 
-	central angle of the circle and the width between wheels being the radius. Until we measure it tommorrow, I will 
+	/* I'm not 100% sure this part is right, but I treated the rotation as a circle with the angle being a
+	central angle of the circle and the width between wheels being the radius. Until we measure it tommorrow, I will
 	make the radius 12 in or 1 ft. I then divided this section of the circumference by the wheel's circumference to find #  of rotations */
 	rotations = ceil(((12.0 * PI) / 360.0) / (4.0 * PI));
 	// 360 ticks per rev
@@ -62,8 +62,8 @@ void leftTurn(float degrees)
 	int rotations = 0; // convert degrees to number of rotations (use wheel diameter)
 	// reset SensorValue for your optical shaft controller
 	SensorValue[rwheelEncoder] = 0;
-	/* I'm not 100% sure this part is right, but I treated the rotation as a circle with the angle being a 
-	central angle of the circle and the width between wheels being the radius. Until we measure it tommorrow, I will 
+	/* I'm not 100% sure this part is right, but I treated the rotation as a circle with the angle being a
+	central angle of the circle and the width between wheels being the radius. Until we measure it tommorrow, I will
 	make the radius 12 in or 1 ft. I then divided this section of the circumference by the wheel's circumference to find #  of rotations */
 	rotations = ceil(((12.0 * PI) / 360.0) / (4.0 * PI));
 	// 360 ticks per rev
