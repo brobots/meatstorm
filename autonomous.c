@@ -80,10 +80,14 @@ void goTo(float x, float y) // unless you want to do complex path-finding to avo
 	moveDistance(hypotenuse);
 	currentX = x;
 	currentY = y;
+}
 
-	}
-
-void pickup()
+void pickup() // activate intake for 2.5 seconds to scoop up some stuff.
 {
-
+	ClearTimer(T1);
+	while(time10[T1] < 250) // time10 is in hundredths of a second, so we count for 2.5 seconds
+	{
+		motor[intake] = 90;
+	}
+	motor[intake] = 0;
 }
