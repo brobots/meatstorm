@@ -40,7 +40,8 @@ void pre_auton()
 	// Example: clearing encoders, setting servo positions, ...
 }
 
-#include "autonomous.c" // Low-level movement methods for autonomous
+ // Low-level movement methods for autonomous
+#include "autonomous.c"
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -57,9 +58,9 @@ task autonomous()
   // Insert user code here.
   // .....................................................................................
 	while(true)
-		{
-			if(bumper switch1)
-				{
+	{
+			if(SensorValue[Button1] == 1)
+			{
 					currentX = 12;
 					currentY= 18;
 					goTo(24,48);
@@ -67,9 +68,16 @@ task autonomous()
 					goTo(12, 18);
 					break;
 			}
-			if (bumper
+			else if (SensorValue[Button2] == 1)
+			{
+					currentX = 36;
+					currentY= 18;
+					goTo(24,48);
+					pickup();
+					goTo(36, 18);
+					break;
+			}
 	}
-	AutonomousCodePlaceholderForTesting();  // Remove this function call once you have "real" code.
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

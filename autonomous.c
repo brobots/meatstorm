@@ -67,26 +67,10 @@ void turn(float degrees) // positive: right; negative: left
 	return; // once done rotating
 }
 
-void leftTurn(float degrees)
-{
-	int rotations = 0; // convert degrees to number of rotations (use wheel diameter)
-	// reset SensorValue for your optical shaft controller
-	SensorValue[rwheelEncoder] = 0;
-	/* I'm not 100% sure this part is right, but I treated the rotation as a circle with the angle being a
-	central angle of the circle and the width between wheels being the radius. Until we measure it tommorrow, I will
-	make the radius 12 in or 1 ft. I then divided this section of the circumference by the wheel's circumference to find #  of rotations */
-	rotations = ceil(((13.5 * PI) / 360.0) / (4.0 * PI));
-	// 360 ticks per rev
-	while(SensorValue[rwheelEncoder] < (360 * rotations)) // update this condition to match your optical shaft sensor value instead of 5
-	{
-		// activate motors
-		motor[rightWheel] = 70;
-	}
-	return; // once done rotating
-}
-void goTo(float x, float y)
+void goTo(float x, float y) // unless you want to do complex path-finding to avoid obstacles like goals: find angle between you and destination, turn that angle, then move necessary distance.
 {
 	// compare x, y to currentX, currentY
+
 	float distX = x-currentX;
 	float distY = y-currentY;
 	float angleRadians = atan(distY/distX);
@@ -96,7 +80,10 @@ void goTo(float x, float y)
 	moveDistance(hypotenuse);
 	currentX = x;
 	currentY = y;
-	// unless you want to do complex path-finding to avoid obstacles like goals: find angle between you and destination, turn that angle, then move necessary distance.
-	//float distance = 0
-	//distance = sqrt(())
+
+	}
+
+void pickup()
+{
+
 }
