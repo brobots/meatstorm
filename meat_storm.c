@@ -1,10 +1,8 @@
 #pragma config(Sensor, dgtl1,  rightTowerEncoder, sensorQuadEncoder)
 #pragma config(Sensor, dgtl3,  rwheelEncoder,  sensorRotation)
 #pragma config(Sensor, dgtl4,  lwheelEncoder,  sensorRotation)
-#pragma config(Sensor, dgtl5,  Button1,        sensorTouch)
-#pragma config(Sensor, dgtl6,  Button2,        sensorTouch)
-#pragma config(Sensor, dgtl7,  Button3,        sensorTouch)
-#pragma config(Sensor, dgtl8,  Button4,        sensorTouch)
+#pragma config(Sensor, dgtl6,  rightBackBumper,        sensorTouch)
+#pragma config(Sensor, dgtl7,  leftBackBumper,        sensorTouch)
 #pragma config(Motor,  port2,           rightTower,    tmotorVex393, openLoop, reversed)
 #pragma config(Motor,  port3,           leftTower,     tmotorVex393, openLoop)
 #pragma config(Motor,  port6,           intake,        tmotorNormal, openLoop)
@@ -59,7 +57,7 @@ task autonomous()
   // .....................................................................................
 	while(true)
 	{
-			if(SensorValue[Button1] == 1)
+			if(SensorValue[leftBackBumper] == 1)
 			{
 					currentX = 12;
 					currentY= 18;
@@ -68,7 +66,7 @@ task autonomous()
 					goTo(12, 18);
 					break;
 			}
-			else if (SensorValue[Button2] == 1)
+			else if (SensorValue[rightBackBumper] == 1)
 			{
 					currentX = 36;
 					currentY= 18;
