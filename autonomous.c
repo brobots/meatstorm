@@ -7,7 +7,7 @@ float currentY = 0;
 
 void moveDistance(float dist)
 {
-	int rotations = floor(dist / (4.0 * PI)); // convert dist to number of rotations (use wheel diameter)
+	float rotations = (dist / (4.0 * PI)); // convert dist to number of rotations (use wheel diameter)
 
 	// reset SensorValue for your optical shaft controller
 	// we need to add the wheel encoder(s) to the motor and sensors setup window!
@@ -50,20 +50,28 @@ void turn(float degrees) // positive: right; negative: left
 	make the radius 12 in or 1 ft. I then divided this section of the circumference by the wheel's circumference to find #  of rotations */
 	rotations = abs((13.5 * PI * degrees / 180.0) / (4.0 * PI));
 	// 360 ticks per rev
-	while(abs(SensorValue[lwheelEncoder]) < (360 * rotations)) // update this condition to match your optical shaft sensor value instead of 5
+	if (degrees > 0)
 	{
-		// activate motors
-		if(degrees > 0)
-			{
-			motor[leftWheel] = 70;
-			motor[rightWheel] = 0;
+		while(abs(SensorValue[lwheelEncoder]) < (360 * rotations)) // update this condition to match your optical shaft sensor value instead of 5
+		{
+				// activate motors
+				motor[leftWheel] = 70;
+				motor[rightWheel] = 0;
+		
 		}
-		else
-			{
-			motor[leftWheel] = 0;
+	
+	}
+	
+	else
+	{
+		while(abs(SensorValue[rwheelEncoder]) < (360 * rotations))
+		{
+			//activate motors
 			motor[rightWheel] = 70;
+			motor[leftWheel] = 0;
 		}
 	}
+
 	return; // once done rotating
 }
 
