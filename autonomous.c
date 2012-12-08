@@ -39,20 +39,30 @@ void moveDistance(float dist)
 	return; // once done rotating
 }
 
-void rightTurn(float degrees)
+void turn(float degrees) // positive: right; negative: left
 {
 	int rotations = 0; // convert degrees to number of rotations (use wheel diameter)
 	// reset SensorValue for your optical shaft controller
 	SensorValue[lwheelEncoder] = 0;
+	SensorValue[rwheelEncoder] = 0;
 	/* I'm not 100% sure this part is right, but I treated the rotation as a circle with the angle being a
 	central angle of the circle and the width between wheels being the radius. Until we measure it tommorrow, I will
 	make the radius 12 in or 1 ft. I then divided this section of the circumference by the wheel's circumference to find #  of rotations */
-	rotations = ceil(((12.0 * PI) / 360.0) / (4.0 * PI));
+	rotations = abs((13.5 * PI * degrees / 180.0) / (4.0 * PI));
 	// 360 ticks per rev
-	while(SensorValue[lwheelEncoder] < (360 * rotations)) // update this condition to match your optical shaft sensor value instead of 5
+	while(abs(SensorValue[lwheelEncoder]) < (360 * rotations)) // update this condition to match your optical shaft sensor value instead of 5
 	{
 		// activate motors
-		motor[leftWheel] = 70;
+		if(degrees > 0)
+			{
+			motor[leftWheel] = 70;
+			motor[rightWheel] = 0;
+		}
+		else
+			{
+			motor[leftWheel] = 0;
+			motor[rightWheel] = 70;
+		}
 	}
 	return; // once done rotating
 }
@@ -65,7 +75,7 @@ void leftTurn(float degrees)
 	/* I'm not 100% sure this part is right, but I treated the rotation as a circle with the angle being a
 	central angle of the circle and the width between wheels being the radius. Until we measure it tommorrow, I will
 	make the radius 12 in or 1 ft. I then divided this section of the circumference by the wheel's circumference to find #  of rotations */
-	rotations = ceil(((12.0 * PI) / 360.0) / (4.0 * PI));
+	rotations = ceil(((13.5 * PI) / 360.0) / (4.0 * PI));
 	// 360 ticks per rev
 	while(SensorValue[rwheelEncoder] < (360 * rotations)) // update this condition to match your optical shaft sensor value instead of 5
 	{
@@ -74,10 +84,19 @@ void leftTurn(float degrees)
 	}
 	return; // once done rotating
 }
-//void goTo(float x, float y)
-//{
+void goTo(float x, float y)
+{
 	// compare x, y to currentX, currentY
+	float distX = x-currentX;
+	float distY = y-currentY;
+	float angleRadians = atan(distY/distX);
+	float realAngle = 90 - degreesToRadians(angleRadians);
+	float hypotenuse = sqrt(distX*distX + distY*distY);
+	turn(realAngle);
+	moveDistance(hypotenuse);
+	currentX = x;
+	currentY = y;
 	// unless you want to do complex path-finding to avoid obstacles like goals: find angle between you and destination, turn that angle, then move necessary distance.
 	//float distance = 0
 	//distance = sqrt(())
-//}
+}

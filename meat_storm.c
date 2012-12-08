@@ -56,7 +56,19 @@ task autonomous()
   // .....................................................................................
   // Insert user code here.
   // .....................................................................................
-
+	while(true)
+		{
+			if(bumper switch1)
+				{
+					currentX = 12;
+					currentY= 18;
+					goTo(24,48);
+					pickup();
+					goTo(12, 18);
+					break;
+			}
+			if (bumper
+	}
 	AutonomousCodePlaceholderForTesting();  // Remove this function call once you have "real" code.
 }
 
